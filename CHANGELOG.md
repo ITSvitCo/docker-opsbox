@@ -3,6 +3,6 @@
 
 # v1.0
 
-* Added ansible
-* Added awscli
-* Added kubectl
+* Added ansible 2.3.1.0
+* Added awscli 1.10.66
+* Added kubectl v1.6.6
