@@ -19,4 +19,4 @@ RUN curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-releas
 
 WORKDIR /srv
 
-VOLUME ["/srv", "/root"]
+VOLUME ["/srv", "/root/.aws", "/root/.kube"]
