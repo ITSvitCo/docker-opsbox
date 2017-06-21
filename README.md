@@ -2,6 +2,25 @@
 
 Docker image with installed CLI tools: `ansible`, `aws`, `kubectl`
 
+# Version
+
+Ansible
+
+```
+ansible 2.3.1.0
+```
+
+AWSCLI
+
+```
+aws-cli/1.10.66 Python/2.7.12 Linux/4.4.0-81-generic botocore/1.4.56
+```
+
+Kubectl
+```
+Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.6", GitCommit:"7fa1c1756d8bc963f1a389f4a6937dc71f08ada2", GitTreeState:"clean", BuildDate:"2017-06-16T18:34:20Z", GoVersion:"go1.7.6", Compiler:"gc", Platform:"linux/amd64"}
+```
+
 # Basic usage
 
 ```
