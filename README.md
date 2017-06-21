@@ -36,3 +36,10 @@ docker run --rm -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD
 docker run --rm -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD}:/srv itsvit/ansible-aws-kubectl aws ec2 describe-instances --region us-west-2
 docker run --rm -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD}:/srv itsvit/ansible-aws-kubectl ansible-playbook playbooks/describe-kubernetes-cluster.yml
 ```
+
+For ansible colorfull output and interactive input
+```
+docker run --rm -ti -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD}:/srv itsvit/ansible-aws-kubectl kubectl get po --all-namespaces
+docker run --rm -ti -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD}:/srv itsvit/ansible-aws-kubectl aws ec2 describe-instances --region us-west-2
+docker run --rm -ti -v ${HOME}/.aws:/root/.aws -v ${HOME}/.kube:/root/.kube -v ${PWD}:/srv itsvit/ansible-aws-kubectl ansible-playbook playbooks/describe-kubernetes-cluster.yml
+```
