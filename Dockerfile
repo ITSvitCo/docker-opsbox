@@ -1,21 +1,42 @@
-FROM ubuntu:16.04
+FROM alpine:3.6
+ENV ANSIBLE_VERSION 2.4.1.0
+ENV JINJA2_VERSION 2.10
+ENV AWSCLI_VERSION 1.11.185
+ENV KUBE_AWS_RELEASE v0.9.8
 
-# Install ansible and awscli
-RUN apt-get update \
-      && apt-get install --no-install-recommends --no-install-suggests -y \
-      python-dev \
-      python-pip \
-      gcc \
-      libssl-dev \
-      curl \
-      groff \
-      && pip install --upgrade pip setuptools \
-      && pip install netaddr awscli ansible Jinja2 \
-      && rm -rf /var/lib/apt/lists/*
+RUN apk update \
+    && apk add --no-cache unzip curl tar \
+    python make bash vim jq  \
+    openssl openssh-client sshpass  \
+    gcc libffi-dev python-dev musl-dev openssl-dev py-pip py-virtualenv \
+    git coreutils less bash-completion \
+    libc6-compat && \
+    rm -rf /var/cache/apk/* && \
+    mkdir -p /etc/bash_completion.d/ /etc/profile.d/
 
 # Install kubectl
-RUN curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
-      && chmod +x /usr/bin/kubectl
+RUN curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+    chmod +x /usr/bin/kubectl && \
+    kubectl completion bash > /etc/bash_completion.d/kubectl.sh
+
+# Intsall kube-aws
+RUN curl --fail -sSL -O https://github.com/kubernetes-incubator/kube-aws/releases/download/${KUBE_AWS_RELEASE}/kube-aws-linux-amd64.tar.gz && \
+    tar xzf kube-aws-linux-amd64.tar.gz && \
+    mv linux-amd64/kube-aws /usr/local/bin/kube-aws && \
+    chmod +x /usr/local/bin/kube-aws && \
+    rm -rf linux-amd64/
+
+# Install Ansible
+RUN pip install ansible==${ANSIBLE_VERSION} boto Jinja2==${JINJA2_VERSION} && \
+    rm -rf /root/.cache && \
+    find / -type f -regex '.*\.py[co]' -delete
+
+# Install aws cli bundle
+RUN pip install awscli==${AWSCLI_VERSION} && \
+    rm -rf /root/.cache && \
+    find / -type f -regex '.*\.py[co]' -delete && \
+    ln -s /usr/local/aws/bin/aws_bash_completer /etc/bash_completion.d/aws.sh && \
+    ln -s /usr/local/aws/bin/aws_completer /usr/local/bin/
 
 WORKDIR /srv
 
