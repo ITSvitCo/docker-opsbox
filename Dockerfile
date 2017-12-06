@@ -24,15 +24,16 @@ RUN curl --fail -sSL -O https://github.com/kubernetes-incubator/kube-aws/release
     tar xzf kube-aws-linux-amd64.tar.gz && \
     mv linux-amd64/kube-aws /usr/local/bin/kube-aws && \
     chmod +x /usr/local/bin/kube-aws && \
-    rm -rf linux-amd64/
+    rm -rf linux-amd64/ && \
+    rm -f xzf kube-aws-linux-amd64.tar.gz
 
 # Install Ansible
-RUN pip install ansible==${ANSIBLE_VERSION} boto Jinja2==${JINJA2_VERSION} && \
+RUN pip install ansible==${ANSIBLE_VERSION} Jinja2==${JINJA2_VERSION} && \
     rm -rf /root/.cache && \
     find / -type f -regex '.*\.py[co]' -delete
 
 # Install aws cli bundle
-RUN pip install awscli==${AWSCLI_VERSION} && \
+RUN pip install awscli==${AWSCLI_VERSION} boto && \
     rm -rf /root/.cache && \
     find / -type f -regex '.*\.py[co]' -delete && \
     ln -s /usr/local/aws/bin/aws_bash_completer /etc/bash_completion.d/aws.sh && \
