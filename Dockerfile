@@ -25,7 +25,7 @@ RUN curl --fail -sSL -O https://github.com/kubernetes-incubator/kube-aws/release
     mv linux-amd64/kube-aws /usr/local/bin/kube-aws && \
     chmod +x /usr/local/bin/kube-aws && \
     rm -rf linux-amd64/ && \
-    rm -f xzf kube-aws-linux-amd64.tar.gz
+    rm -f kube-aws-linux-amd64.tar.gz
 
 # Install Ansible
 RUN pip install ansible==${ANSIBLE_VERSION} Jinja2==${JINJA2_VERSION} && \
