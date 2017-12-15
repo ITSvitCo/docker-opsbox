@@ -2,7 +2,7 @@
 
 Docker image with installed CLI tools: `ansible`, `aws`, `kubectl`
 
-# Version
+# Versions
 
 * Ansible `2.4.1.0`
 * AWSCLI  `1.11.185`
