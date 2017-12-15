@@ -47,8 +47,6 @@ RUN chmod +x /start.sh && \
     ln -s /mnt/opsbox/.aws /root/.aws && \
     ln -s /mnt/opsbox/.kube /root/.kube
 
-
-
 WORKDIR /opsbox
 
 VOLUME ["/opsbox", "/mnt/opsbox"]
