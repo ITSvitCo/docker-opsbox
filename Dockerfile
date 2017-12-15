@@ -5,7 +5,7 @@ ENV AWSCLI_VERSION 1.11.185
 ENV KUBE_AWS_RELEASE v0.9.8
 
 RUN apk update \
-    && apk add --no-cache unzip curl tar \
+    && apk add --no-cache unzip curl tar bash \
     python make bash vim jq  \
     openssl openssh-client sshpass  \
     gcc libffi-dev python-dev musl-dev openssl-dev py-pip py-virtualenv \
@@ -39,6 +39,17 @@ RUN pip install awscli==${AWSCLI_VERSION} boto && \
     ln -s /usr/local/aws/bin/aws_bash_completer /etc/bash_completion.d/aws.sh && \
     ln -s /usr/local/aws/bin/aws_completer /usr/local/bin/
 
-WORKDIR /srv
+COPY start.sh /start.sh
 
-VOLUME ["/srv", "/root/.aws", "/root/.kube"]
+RUN chmod +x /start.sh && \
+    mkdir /mnt/opsbox && \
+    ln -s /mnt/opsbox/.aws /root/.aws && \
+    ln -s /mnt/opsbox/.kube /root/.kube
+
+
+
+WORKDIR /opsbox
+
+VOLUME ["/opsbox", "/mnt/opsbox"]
+
+ENTRYPOINT ["/start.sh"]
