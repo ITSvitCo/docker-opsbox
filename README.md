@@ -4,9 +4,9 @@ Docker image with installed CLI tools: `ansible`, `aws`, `kubectl`
 
 # Versions
 
-* Ansible `2.4.1.0`
-* AWSCLI  `1.11.185`
-* Kubectl `v1.8.5`
+* Ansible  `2.4.1.0`
+* AWSCLI   `1.11.185`
+* Kubectl  `v1.8.5`
 * Kube-AWS `v0.9.8`
 
 # Basic usage

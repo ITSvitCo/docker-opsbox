@@ -3,6 +3,7 @@ ENV ANSIBLE_VERSION 2.4.1.0
 ENV JINJA2_VERSION 2.10
 ENV AWSCLI_VERSION 1.11.185
 ENV KUBE_AWS_RELEASE v0.9.8
+ENV KUBECTL_VERSION v1.8.5
 
 RUN apk update \
     && apk add --no-cache unzip curl tar bash \
@@ -15,7 +16,7 @@ RUN apk update \
     mkdir -p /etc/bash_completion.d/ /etc/profile.d/
 
 # Install kubectl
-RUN curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+RUN curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod +x /usr/bin/kubectl && \
     kubectl completion bash > /etc/bash_completion.d/kubectl.sh
 
